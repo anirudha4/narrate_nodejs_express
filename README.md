@@ -9,7 +9,7 @@ $ npm start
 ```
 
 ## Extra setup
-* Create a narrate database in your mongoDB Atlas
+* Create a database named 'narrate' in your mongoDB Atlas
 * Create a dotenv file to store you MONGO_URI
 
 ## License
