@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrate | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/"><img src="/logo.svg" width="100px" alt="" class="logo"></a>
+            <div class="btns">
+                <a href="/create" class="btn btn-create">Create Story</a>
+                <a href="/stories" class="btn btn-create">Stories</a>
+
+                <!-- <a href="/create" class="btn btn-create">Create Article</a> -->
+            </div>
+        </nav>
+        <h1>All STORIES</h1>
+        <form action="/story/search" method="post" style="display: flex; justify-content: space-between;">
+            <div class="block" style="flex:1; margin-right:20px ;">
+                <input type="text" required name="search" placeholder="Enter name of the author to search">
+            </div>
+            <br>
+            <button type="submit" style="flex: .2;">Submit</button>
+        </form>
+        <br>
+        <hr>
+        <div class="stories">
+            <% data.forEach(story => { %>
+                <% if(story.published){ %>               
+                <a href="/story/<%= story._id %> " class="" aria-disabled="true">
+                    <div class="story published">
+                        <h3><%= story.title %></h3>
+                        <small><%=  %><%= story.createdAt.toLocaleDateString() %></small>
+                    </div>
+                </a>
+              <%  }else{ %>
+                    <a href="/story/<%= story._id %> ">
+                    <div class="story">
+                        <%= story.title %>
+                        <small><%=  %><%= story.createdAt.toLocaleDateString() %></small>
+                    </div>
+                </a>
+            <% } %> 
+            <% }) %>    
+        </div>
+        
+    </div>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.7/marked.min.js"></script>
+    <script src="/main.js"></script>
+</body>
+</html>

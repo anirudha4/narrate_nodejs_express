@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrate | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="modal">
+        <div class="modal-content">
+            <span id="close"><i class="fas fa-times"></i></span>
+            <div class="header">MARKDOWN INSTRUCTIONS</div>
+        <div class="table">
+            <div class="table-head">
+                <div class="left">Element</div>
+                <div class="right">Markdown Syntax</div>
+            </div>
+            <div class="table-data">
+                <div class="left">
+                    Heading
+                </div>
+                <div class="right">
+                    #< space >h1 <br>
+                    ##< space >h2 <br>
+                    ###< space >h3 <br>
+                </div>
+            </div>
+            <div class="table-data">
+                <div class="left">
+                    Bold
+                </div>
+                <div class="right">
+                    **BOLD**
+                </div>
+            </div>
+            <div class="table-data">
+                <div class="left">
+                    Italic
+                </div>
+                <div class="right">
+                    *Italic*
+                </div>
+            </div>
+            <div class="table-data">
+                <div class="left">
+                    Blockqoute
+                </div>
+                <div class="right">
+                    >< space >Blockqoute
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="left">
+                    List
+                </div>
+                <div class="right">
+                    - list_item1 <br>
+                    - list_item2 <br>
+                    1. list_item1 <br>
+                    2. list_item2 <br>
+                </div>
+            </div>
+            <div class="table-data">
+                <div class="left">
+                    Horizontal Divider
+                </div>
+                <div class="right">
+                    ---
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="left">
+                    Link
+                </div>
+                <div class="right">
+                    [GOOGLE](www.google.com)
+                </div>
+            </div>
+            <div class="table-data">
+                <div class="left">
+                   Image
+                </div>
+                <div class="right">
+                    ![imagename](link to image)
+                </div>
+            </div>
+            <div class="table-data">
+                <div class="left">
+                   line break
+                </div>
+                <div class="right">
+                    two spaces and then enter
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <nav>
+            <a href="/"><img src="/logo.svg" width="100px" alt="" class="logo"></a>
+            <div class="btns">
+                <a href="/adminstories" class="btn btn-create">Stories</a>
+            </div>
+        </nav>
+    </div>
+    <div class="editor-container">
+        <div class="editor">
+            <span id="info"><i class="fas fa-info"></i></span>
+            <form action="/create" method="post">
+                <div class="block">
+                    <input required type="text" placeholder="Title of the story" name="title" autocomplete="off">
+                </div>
+                <div class="block">
+                    <input required name="author" id="author" type="text" placeholder="Enter your name">
+                    <small class="info">You can use this name to search for your articles - [Keep it same and unique]</small>
+                </div>
+                <div class="block">
+                    <textarea required rows="9" placeholder="Please refer the info button at the top" name="markdown" id="markdown" ></textarea>
+                </div>
+                <div class="block">
+                    <input required type="text" placeholder="Enter a secret key" id="secret" name="secret">
+                    <small>Please enter a secure secret</small>
+                </div>
+                <button type="submit">Publish <span><i class="fas fa-newspaper"></i></span></button>
+            </form>
+        </div>
+        <div class="preview">
+
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.7/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="/main.js"></script>
+</body>
+</html>

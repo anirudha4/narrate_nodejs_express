@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrate | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/"><img src="/logo.svg" width="100px" alt="" class="logo"></a>
+            <div class="btns">
+                <a href="/adminstories" class="btn btn-create">Stories</a>
+            </div>
+        </nav>
+    </div>
+    <div class="editor-container">
+        <div class="editor">
+            <form action="/publish" method="post">
+                <div class="block">
+                    <input required type="text" placeholder="Title of the story" name="title" autocomplete="off" value="<%= story.title %>">
+                </div>
+                <div class="block">
+                    <input required readonly name="author" type="text" placeholder="Enter your name" value="<%= story.author %>">
+                    <small class="info">You can use this name to search for your articles - [Keep it same and unique]</small>
+                </div>
+                <div class="block">
+                    <textarea required rows="9" placeholder="Please refer the info button at the top" name="markdown" id="markdown"><%= story.markdown %></textarea>
+                </div>
+                <div class="block">
+                    <input readonly required type="text" placeholder="Enter a secret key" id="secret" name="secret" value="<%= story.secret %>">
+                    <small>Please enter a secure secret</small>
+                </div>
+                <input type="hidden" name="id" value="<%= story._id %>">
+                <% if(story.published){ %>
+                    <button class="disabled" type="submit" disabled>Already Published<span><i class="fas fa-newspaper"></i></span></button>
+               <% } else{ %>
+                <button type="submit">Publish<span><i class="fas fa-newspaper"></i></span></button>
+              <% } %> 
+            </form>
+        </div>
+        <div class="preview">
+
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.7/marked.min.js"></script>
+    <!-- <script src="/main.js"></script> -->
+    <script>
+        const mardown = document.querySelector('#markdown')
+        const preview = document.querySelector('.preview')
+        mardown.addEventListener('keyup', e => {
+            preview.innerHTML = marked(e.target.value)
+        })
+    </script>
+</body>
+</html>
