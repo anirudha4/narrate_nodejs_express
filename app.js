@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Author =  require('./models/Author')
 const AdminPreview = require('./models/AdminPreview')
+const pendoTrack = require('./pendoTrack')
 const port = process.env.PORT || 8000
 // INIT APP
 const app = express()
@@ -35,6 +36,10 @@ app.get('/adminstories', async (req,res) => {
 app.post('/story/search', async (req,res) => {
     try{
         const data = await AdminPreview.find().where('author').equals(req.body.search)
+        pendoTrack('story_search_executed', 'anonymous', 'system', {
+            search_query: req.body.search,
+            results_count: data.length
+        })
         res.render('adminstories', {data})
     }
     catch(err){
@@ -76,7 +81,8 @@ app.post('/checkauthor', async (req,res) => {
 app.post('/publish', async (req,res) => {
     try{
         const author = await Author.findOne().where('name').equals(req.body.author)
-        if(author == null){
+        const isNewAuthor = author == null
+        if(isNewAuthor){
             await Author.create({
                 name:  req.body.author
             })
@@ -88,7 +94,13 @@ app.post('/publish', async (req,res) => {
             secret: req.body.secret,
             published: true
         })
-        
+        pendoTrack('story_published', req.body.author, 'system', {
+            story_id: req.body.id,
+            title: req.body.title,
+            author: req.body.author,
+            is_new_author: isNewAuthor,
+            markdown_length: (req.body.markdown || '').length
+        })
         res.redirect('/adminstories')
     }
     catch(err){
@@ -104,6 +116,13 @@ app.post('/create', (req,res) => {
         published: false
     })
     .then(data => {
+        pendoTrack('story_created', req.body.author, 'system', {
+            story_id: String(data._id),
+            title: req.body.title,
+            author: req.body.author,
+            markdown_length: (req.body.markdown || '').length,
+            has_secret: Boolean(req.body.secret)
+        })
         res.redirect('/adminstories')
     })
     .catch(err => console.log(err))
